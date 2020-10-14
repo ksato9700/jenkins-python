@@ -7,7 +7,7 @@ RUN userdel jenkins \
     && groupadd -g ${GID} jenkins \
     && useradd -u ${UID} -g ${GID} -m -s /bin/bash jenkins
 RUN apt-get update \
-    && apt-get install -y pipenv libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev libgdbm-dev libbz2-dev liblzma-dev zlib1g-dev uuid-dev libffi-dev libdb-dev \
+    && apt-get install -y pipenv libcurl4-openssl-dev libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev libgdbm-dev libbz2-dev liblzma-dev zlib1g-dev uuid-dev libffi-dev libdb-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 USER jenkins
