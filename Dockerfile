@@ -7,7 +7,7 @@ RUN userdel jenkins \
     && groupadd -g ${GID} jenkins \
     && useradd -u ${UID} -g ${GID} -m -s /bin/bash jenkins
 RUN apt-get update \
-    && apt-get install -y pipenv libcurl4-openssl-dev libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev libgdbm-dev libbz2-dev liblzma-dev zlib1g-dev uuid-dev libffi-dev libdb-dev \
+    && apt-get install -y pipenv libcurl4-openssl-dev libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev libgdbm-dev libbz2-dev liblzma-dev zlib1g-dev uuid-dev libffi-dev libdb-dev libaio1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 USER jenkins
@@ -19,3 +19,6 @@ WORKDIR /home/jenkins
 SHELL ["/bin/bash", "-c"]
 RUN source ~/.bash_profile \
     && pyenv install 3.8.1
+RUN curl -O https://download.oracle.com/otn_software/linux/instantclient/199000/instantclient-basiclite-linux.x64-19.9.0.0.0dbru.zip \
+    && unzip instantclient-basiclite-linux.x64-19.9.0.0.0dbru.zip
+ENV LD_LIBRARY_PATH /home/jenkins/instantclient_19_9:$LD_LIBRARY_PATH
